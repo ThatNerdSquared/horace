@@ -118,6 +118,23 @@ class cotwActions {
 					);
 				}
 			}
+			async function confirmUpdate(message) {
+				let path = process.cwd() + '/data/cotw.json';
+				const stats = fs.statSync(path);
+				let mtime = stats.mtime;
+				let lastModified = new Date(mtime);
+				console.log(lastModified);
+				let currentDate = new Date();
+				console.log(currentDate);
+				let diff = currentDate.getTime() - lastModified.getTime();
+				let minute = 1000 * 60;
+				if (diff <= minute) {
+					return message.react(config.emotes.yes2);
+				}
+				else {
+					return null;
+				}
+			}
 		}
 	}
 }
